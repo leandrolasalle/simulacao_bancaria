@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- O título da página será dinâmico -->
+    <title>{% block title %}Simulação Bancária{% endblock %}</title>
+    <!-- Link para uma futura folha de estilos (CSS) -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">Banco FastAPI</a></h1>
+        </div>
+    </header>
+    <main class="container">
+        <!-- Este bloco de conteúdo será substituído pelo conteúdo específico de cada página -->
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 - Simulação Bancária com FastAPI</p>
+        </div>
+    </footer>
+</body>
+</html>

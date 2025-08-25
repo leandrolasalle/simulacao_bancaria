@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Criar Nova Conta{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h2>Criar Nova Conta</h2>
+        <!-- O formulário envia os dados para o endpoint /criar-conta usando o método POST -->
+        <form action="/criar-conta" method="post">
+            <div class="form-group">
+                <label for="nome_titular">Nome do Titular:</label>
+                <input type="text" id="nome_titular" name="nome_titular" required minlength="3">
+            </div>
+            <button type="submit" class="btn">Criar Conta</button>
+        </form>
+        <a href="/" class="link-voltar">Voltar para a lista</a>
+    </div>
+{% endblock %}

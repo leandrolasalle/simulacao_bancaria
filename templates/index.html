@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h2>Contas Bancárias</h2>
+        <a href="/criar-conta" class="btn">Criar Nova Conta</a>
+    </div>
+
+    {% if contas %}
+        <div class="card">
+            <h3>Contas Cadastradas</h3>
+            <ul class="lista-contas">
+                <!-- Itera sobre a lista de contas enviada pelo controller -->
+                {% for conta in contas %}
+                    <li>
+                        <!-- Cada item da lista é um link para a página de detalhes da conta -->
+                        <a href="/contas/{{ conta.id }}">
+                            <strong>Titular:</strong> {{ conta.nome_titular }} <br>
+                            <!-- Formata o saldo para ter sempre duas casas decimais -->
+                            <span>Saldo: R$ {{ "%.2f"|format(conta.saldo) }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <!-- Mensagem mostrada se não houver nenhuma conta cadastrada -->
+        <div class="card">
+            <p>Nenhuma conta cadastrada ainda. Clique no botão acima para criar a primeira!</p>
+        </div>
+    {% endif %}
+{% endblock %}
+

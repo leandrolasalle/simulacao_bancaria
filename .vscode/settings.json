@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./controllers"
+    ],
+    "python-envs.pythonProjects": []
+}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes da Conta{% endblock %}
+
+{% block content %}
+
+    {% if error_message %}
+        <div class="alert-error">
+            {{ error_message }}
+        </div>
+    {% endif %}
+
+    <div class="card">
+        <h2>Detalhes da Conta</h2>
+        <p><strong>Titular:</strong> {{ conta.nome_titular }}</p>
+        <p class="saldo"><strong>Saldo Atual: R$ {{ "%.2f"|format(conta.saldo) }}</strong></p>
+    </div>
+
+    <div class="operacoes-container">
+        <!-- Formulário de Depósito -->
+        <div class="card operacao">
+            <h3>Realizar Depósito</h3>
+            <form action="/contas/{{ conta.id }}/depositar" method="post">
+                <div class="form-group">
+                    <label for="valor_deposito">Valor:</label>
+                    <input type="number" step="0.01" min="0.01" id="valor_deposito" name="valor" required>
+                </div>
+                <button type="submit" class="btn">Depositar</button>
+            </form>
+        </div>
+
+        <!-- Formulário de Saque -->
+        <div class="card operacao">
+            <h3>Realizar Saque</h3>
+            <form action="/contas/{{ conta.id }}/sacar" method="post">
+                <div class="form-group">
+                    <label for="valor_saque">Valor:</label>
+                    <input type="number" step="0.01" min="0.01" id="valor_saque" name="valor" required>
+                </div>
+                <button type="submit" class="btn btn-saque">Sacar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Histórico de Transações</h3>
+        {% if conta.transacoes %}
+            <table class="tabela-transacoes">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo</th>
+                        <th>Valor (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transacao in conta.transacoes | reverse %}
+                        <tr class="{{ transacao.tipo }}">
+                            <td>{{ transacao.data_transacao.strftime('%d/%m/%Y %H:%M') }}</td>
+                            <td>{{ transacao.tipo.capitalize() }}</td>
+                            <td>{{ "%.2f"|format(transacao.valor) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhuma transação registada.</p>
+        {% endif %}
+    </div>
+
+    <!-- Nova Secção para Deletar a Conta -->
+    <div class="card card-danger">
+        <h3>Deletar Conta</h3>
+        <p>Esta ação não pode ser desfeita. Todos os dados da conta serão permanentemente removidos.</p>
+        <form action="/contas/{{ conta.id }}/deletar" method="post" onsubmit="return confirm('Tem a certeza que deseja deletar esta conta? Esta ação é irreversível.');">
+            <button type="submit" class="btn btn-delete">Deletar Conta Permanentemente</button>
+        </form>
+    </div>
+
+    <a href="/" class="link-voltar">Voltar para a lista de contas</a>
+{% endblock %}
