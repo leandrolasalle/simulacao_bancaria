@@ -1,7 +1,6 @@
 # crud.py
 from sqlalchemy.orm import Session
 
-# Importa os modelos e schemas que criámos
 import models
 import schemas
 
@@ -27,11 +26,19 @@ def delete_conta(db: Session, conta_id: int):
     """Deleta uma conta e todas as suas transações associadas."""
     db_conta = get_conta(db, conta_id=conta_id)
     if db_conta:
-        # Deleta as transações primeiro para evitar problemas de chave estrangeira
         db.query(models.Transacao).filter(models.Transacao.conta_id == conta_id).delete(synchronize_session=False)
-        # Deleta a conta
         db.delete(db_conta)
         db.commit()
+    return db_conta
+
+# **FUNÇÃO EM FALTA ADICIONADA AQUI**
+def update_conta(db: Session, conta_id: int, conta_update: schemas.ContaUpdate):
+    """Atualiza o nome do titular de uma conta."""
+    db_conta = get_conta(db, conta_id=conta_id)
+    if db_conta:
+        db_conta.nome_titular = conta_update.nome_titular
+        db.commit()
+        db.refresh(db_conta)
     return db_conta
 
 # --- Funções CRUD para a Transação ---

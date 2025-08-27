@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from typing import Annotated
 
+# CORREÇÃO: Imports alterados para absolutos (sem os pontos)
 import crud
 import schemas
 import models
@@ -45,6 +46,13 @@ def pagina_detalhes_conta(request: Request, conta_id: int, db: Session = Depends
         "error_message": error_message
     })
 
+@router.post("/contas/{conta_id}/atualizar")
+def processa_atualizar_conta(conta_id: int, nome_titular: Annotated[str, Form()], db: Session = Depends(get_db)):
+    """Processa a atualização do nome do titular a partir do formulário."""
+    conta_update_schema = schemas.ContaUpdate(nome_titular=nome_titular)
+    crud.update_conta(db, conta_id=conta_id, conta_update=conta_update_schema)
+    return RedirectResponse(url=f"/contas/{conta_id}", status_code=status.HTTP_303_SEE_OTHER)
+
 @router.post("/contas/{conta_id}/depositar")
 def processa_deposito(conta_id: int, valor: Annotated[float, Form()], db: Session = Depends(get_db)):
     db_conta = crud.get_conta(db, conta_id=conta_id)
@@ -70,6 +78,5 @@ def processa_saque(conta_id: int, valor: Annotated[float, Form()], db: Session =
 
 @router.post("/contas/{conta_id}/deletar")
 def processa_deletar_conta(conta_id: int, db: Session = Depends(get_db)):
-    """Processa a exclusão de uma conta e redireciona para a página inicial."""
     crud.delete_conta(db, conta_id=conta_id)
     return RedirectResponse(url="/", status_code=status.HTTP_303_SEE_OTHER)

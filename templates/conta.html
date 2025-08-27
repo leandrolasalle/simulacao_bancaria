@@ -16,6 +16,18 @@
         <p class="saldo"><strong>Saldo Atual: R$ {{ "%.2f"|format(conta.saldo) }}</strong></p>
     </div>
 
+    <!-- **NOVO FORMULÁRIO DE ATUALIZAÇÃO** -->
+    <div class="card">
+        <h3>Editar Nome do Titular</h3>
+        <form action="/contas/{{ conta.id }}/atualizar" method="post">
+            <div class="form-group">
+                <label for="nome_titular">Novo Nome:</label>
+                <input type="text" id="nome_titular" name="nome_titular" value="{{ conta.nome_titular }}" required minlength="3">
+            </div>
+            <button type="submit" class="btn">Atualizar Nome</button>
+        </form>
+    </div>
+
     <div class="operacoes-container">
         <!-- Formulário de Depósito -->
         <div class="card operacao">
@@ -68,12 +80,11 @@
         {% endif %}
     </div>
 
-    <!-- Nova Secção para Deletar a Conta -->
     <div class="card card-danger">
         <h3>Deletar Conta</h3>
-        <p>Esta ação não pode ser desfeita. Todos os dados da conta serão permanentemente removidos.</p>
-        <form action="/contas/{{ conta.id }}/deletar" method="post" onsubmit="return confirm('Tem a certeza que deseja deletar esta conta? Esta ação é irreversível.');">
-            <button type="submit" class="btn btn-delete">Deletar Conta Permanentemente</button>
+        <p>Esta ação não pode ser desfeita.</p>
+        <form action="/contas/{{ conta.id }}/deletar" method="post" onsubmit="return confirm('Tem a certeza?');">
+            <button type="submit" class="btn btn-delete">Deletar Conta</button>
         </form>
     </div>
 
