@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: A Jornada de uma Simulação Bancária</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 
+    Narrative Plan:
+    - Title: Anatomia de uma Simulação Bancária: Uma Jornada Full-Stack
+    - Sections: O Stack Tecnológico, A Arquitetura MVC, A Jornada do Desenvolvimento (Timeline), Análise de Erros, Funcionalidades Chave, Lições Aprendidas.
+    - Story: Guiar o utilizador desde a fundação do projeto, passando pelos desafios do desenvolvimento, até as funcionalidades finais e os principais aprendizados.
+
+    Visualization Choices:
+    - Tech Stack -> Goal: Inform -> Method: Icon Cards (HTML/CSS + Unicode, NO SVG) -> Justification: Resumo visual e rápido das tecnologias.
+    - Architecture -> Goal: Organize -> Method: Flowchart (HTML/CSS, NO SVG/Mermaid) -> Justification: Mostra claramente as relações entre os ficheiros do projeto.
+    - Development Journey -> Goal: Change -> Method: Timeline (HTML/CSS, NO SVG) -> Justification: A melhor forma de mostrar um processo cronológico com marcos e obstáculos.
+    - Error Analysis -> Goal: Compare -> Method: Donut Chart (Chart.js/Canvas, NO SVG) -> Justification: Ideal para mostrar as proporções dos tipos de erro.
+
+    Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All diagrams are built with structured HTML and CSS.
+    Color Palette: Energetic & Playful (#003f5c, #7a5195, #ef5675, #ffa600) - Note: I'm adapting this slightly for better contrast and naming. Let's call it "Vibrant Core". HEX codes: #003f5c (Azul Escuro), #7a5195 (Roxo), #ef5675 (Rosa), #ffa600 (Laranja).
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ffa600;
+            border: 4px solid #f0f4f8;
+        }
+        .timeline-item.roadblock::before {
+            background-color: #ef5675;
+        }
+    </style>
+</head>
+<body class="text-gray-1000">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#003f5c] mb-2">Anatomia de uma Simulação Bancária</h1>
+            <p class="text-lg md:text-xl text-gray-600">Uma jornada full-stack com Python, FastAPI, SQLAlchemy e PostgreSQL.</p>
+        </header>
+
+        <main class="space-y-16 md:space-y-24">
+
+            <section id="tech-stack">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">O Stack Tecnológico</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="text-5xl mb-3">🐍</div>
+                        <h3 class="text-xl font-semibold text-[#003f5c]">Python</h3>
+                        <p class="text-gray-500">A base lógica do backend.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="text-5xl mb-3">🚀</div>
+                        <h3 class="text-xl font-semibold text-[#003f5c]">FastAPI</h3>
+                        <p class="text-gray-500">Framework para a API e rotas web.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="text-5xl mb-3">🐘</div>
+                        <h3 class="text-xl font-semibold text-[#003f5c]">PostgreSQL</h3>
+                        <p class="text-gray-500">O banco de dados relacional.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="text-5xl mb-3">🔗</div>
+                        <h3 class="text-xl font-semibold text-[#003f5c]">SQLAlchemy</h3>
+                        <p class="text-gray-500">O ORM para a comunicação com o banco.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="architecture">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-12">A Arquitetura MVC-inspirada</h2>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-center text-gray-600 mb-8">O projeto foi estruturado para separar responsabilidades, facilitando a manutenção e escalabilidade. O fluxo de um pedido do utilizador atravessa estas camadas de forma organizada.</p>
+                    <div class="flex flex-col md:flex-row justify-around items-center space-y-8 md:space-y-0 text-center">
+                        <div class="flex flex-col items-center">
+                            <div class="w-48 p-4 bg-[#f0f4f8] border-2 border-[#003f5c] rounded-lg shadow">
+                                <h4 class="font-bold text-[#003f5c]">View (templates/)</h4>
+                                <p class="text-sm text-gray-500">Interface HTML (Jinja2)</p>
+                            </div>
+                            <div class="text-2xl text-[#7a5195] my-2">↕</div>
+                            <p class="text-xs text-gray-500">Pedido do Utilizador</p>
+                        </div>
+
+                        <div class="text-4xl text-[#ffa600] hidden md:block">→</div>
+
+                        <div class="flex flex-col items-center">
+                             <div class="w-48 p-4 bg-[#f0f4f8] border-2 border-[#7a5195] rounded-lg shadow">
+                                <h4 class="font-bold text-[#7a5195]">Controller (controllers/)</h4>
+                                <p class="text-sm text-gray-500">Lógica de Rota (FastAPI)</p>
+                            </div>
+                        </div>
+
+                        <div class="text-4xl text-[#ffa600] hidden md:block">→</div>
+                        
+                        <div class="flex flex-col items-center">
+                             <div class="w-48 p-4 bg-[#f0f4f8] border-2 border-[#ef5675] rounded-lg shadow">
+                                <h4 class="font-bold text-[#ef5675]">Model (crud.py, models.py)</h4>
+                                <p class="text-sm text-gray-500">Lógica de Dados (SQLAlchemy)</p>
+                            </div>
+                             <div class="text-2xl text-gray-400 my-2">↔</div>
+                             <p class="text-xs text-gray-500">Base de Dados</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="journey">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-12">A Jornada do Desenvolvimento</h2>
+                <div class="relative pl-8 border-l-2 border-dashed border-gray-300">
+                    <div class="timeline-item relative pb-12">
+                        <h3 class="text-xl font-bold text-[#003f5c]">Setup Inicial</h3>
+                        <p class="text-gray-600">Definição da estrutura de pastas e instalação das dependências iniciais.</p>
+                    </div>
+                    <div class="timeline-item roadblock relative pb-12">
+                        <h3 class="text-xl font-bold text-[#ef5675]">Obstáculo: Conexão com o Banco</h3>
+                        <p class="text-gray-600">Surgiram os primeiros desafios: erros de `timeout` e `password authentication failed`, exigindo depuração da instalação do PostgreSQL e dos ficheiros de configuração.</p>
+                    </div>
+                    <div class="timeline-item relative pb-12">
+                        <h3 class="text-xl font-bold text-[#003f5c]">Implementação do CRUD Básico</h3>
+                        <p class="text-gray-600">Criação das funcionalidades de criar conta, consultar saldo, depositar e sacar.</p>
+                    </div>
+                     <div class="timeline-item roadblock relative pb-12">
+                        <h3 class="text-xl font-bold text-[#ef5675]">Obstáculo: Erros de Importação</h3>
+                        <p class="text-gray-600">`ModuleNotFoundError` e `ImportError` apareceram devido a imports relativos e à estrutura de pacotes, necessitando de uma refatoração na forma como os módulos se comunicavam.</p>
+                    </div>
+                    <div class="timeline-item relative pb-12">
+                        <h3 class="text-xl font-bold text-[#003f5c]">Expansão de Funcionalidades</h3>
+                        <p class="text-gray-600">Adição das funcionalidades de atualizar e deletar contas, e implementação de um endpoint de API (`PUT`).</p>
+                    </div>
+                    <div class="timeline-item roadblock relative pb-12">
+                        <h3 class="text-xl font-bold text-[#ef5675]">Obstáculo: Sincronização com Git</h3>
+                        <p class="text-gray-600">Ao tentar enviar para o GitHub, surgiram erros de `non-fast-forward` devido a históricos divergentes, resolvidos com `git pull` estratégico.</p>
+                    </div>
+                    <div class="timeline-item relative pb-4">
+                        <h3 class="text-xl font-bold text-[#003f5c]">Documentação e Finalização</h3>
+                        <p class="text-gray-600">Criação do `README.md` e da Wiki do projeto para documentar a arquitetura, funcionalidades e guias de uso.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <section id="error-analysis">
+                    <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Análise de Erros Encontrados</h2>
+                    <p class="text-center text-gray-600 mb-6">Uma análise dos tipos de erro mais comuns durante o desenvolvimento mostra que a configuração do ambiente e a estruturação do código foram os maiores desafios.</p>
+                    <div class="chart-container bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto h-100 md:h-96">
+                        <canvas id="errorChart"></canvas>
+                    </div>
+                </section>
+
+                <section id="features">
+                    <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Funcionalidades Chave</h2>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-md flex items-center space-x-4">
+                            <div class="text-2xl text-green-500">✚</div>
+                            <div>
+                                <h4 class="font-semibold">Criar & Deletar Contas</h4>
+                                <p class="text-sm text-gray-500">Gestão completa do ciclo de vida de uma conta.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md flex items-center space-x-4">
+                            <div class="text-2xl text-blue-500">💰</div>
+                            <div>
+                                <h4 class="font-semibold">Operações Financeiras</h4>
+                                <p class="text-sm text-gray-500">Realização de depósitos e saques com validação de saldo.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md flex items-center space-x-4">
+                            <div class="text-2xl text-purple-500">📝</div>
+                            <div>
+                                <h4 class="font-semibold">Atualizar Dados</h4>
+                                <p class="text-sm text-gray-500">Edição de informações do titular através da interface e da API.</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg shadow-md flex items-center space-x-4">
+                            <div class="text-2xl text-orange-500">📊</div>
+                            <div>
+                                <h4 class="font-semibold">Consulta de Histórico</h4>
+                                <p class="text-sm text-gray-500">Visualização de todas as transações ordenadas por data.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+            <section id="lessons">
+                <h2 class="text-3xl font-bold text-center text-[#003f5c] mb-8">Principais Lições Aprendidas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h4 class="font-bold text-lg mb-2 text-[#003f5c]">A Importância da Estrutura</h4>
+                        <p class="text-gray-600">Uma estrutura de pastas bem definida desde o início evita a maioria dos erros de importação e torna o projeto mais fácil de navegar.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h4 class="font-bold text-lg mb-2 text-[#7a5195]">Separação de API e Web</h4>
+                        <p class="text-gray-600">Distinguir entre controladores para a API (JSON) e para a interface web (HTML) mantém o código limpo e os propósitos claros.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h4 class="font-bold text-lg mb-2 text-[#ef5675]">Depuração Sistemática</h4>
+                        <p class="text-gray-600">Erros de conexão e configuração são comuns. Abordá-los passo a passo, desde a verificação do serviço até os ficheiros de configuração, é a chave para a solução.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 md:mt-24 pt-8 border-t border-gray-200">
+            <p class="text-gray-500">Infográfico gerado para documentar o projeto "Simulação Bancária".</p>
+        </footer>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('errorChart').getContext('2d');
+        const errorChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'DB, Git',
+                    'Python',
+                    'Validação,CRUD'
+                ],
+                datasets: [{
+                    label: 'Tipos de Erro',
+                    data: [15, 17,10],
+                    backgroundColor: [
+                        '#ef5675',
+                        '#ffa600',
+                        '#7a5195'
+                    ],
+                    borderColor: '#f0f4f8',
+                    borderWidth: 4,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            textAlign: 'center', // 🔹 Centraliza texto em várias linhas
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function (tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                    return label.join(' '); // junta linhas no tooltip
+                                } else {
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        // Quebra textos longos em várias linhas
+        const processLongLabels = (chart) => {
+            chart.data.labels.forEach((label, index) => {
+                if (typeof label === 'string' && label.length > 16) {
+                    const words = label.split(' ');
+                    const newLabel = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + ' ' + word).trim().length > 16) {
+                            newLabel.push(currentLine.trim());
+                            currentLine = word;
+                        } else {
+                            currentLine = (currentLine + ' ' + word).trim();
+                        }
+                    });
+                    newLabel.push(currentLine.trim());
+                    chart.data.labels[index] = newLabel;
+                }
+            });
+        };
+
+        processLongLabels(errorChart);
+        errorChart.update();
+    });
+</script>
+
+</body>
+</html>
+

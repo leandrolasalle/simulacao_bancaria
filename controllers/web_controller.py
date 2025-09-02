@@ -80,3 +80,8 @@ def processa_saque(conta_id: int, valor: Annotated[float, Form()], db: Session =
 def processa_deletar_conta(conta_id: int, db: Session = Depends(get_db)):
     crud.delete_conta(db, conta_id=conta_id)
     return RedirectResponse(url="/", status_code=status.HTTP_303_SEE_OTHER)
+
+# Rota para servir a página de apresentação/infográfico
+@router.get("/apresentacao", response_class=HTMLResponse)
+async def pagina_apresentacao(request: Request):
+    return templates.TemplateResponse("infographic.html", {"request": request})
